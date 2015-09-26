@@ -6,8 +6,8 @@ import java.io.FileReader;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 /**
- * Q: Why complexity = Mlog(N)?
- * A: 
+ * week1 Interview Question: Q1 Social Network Connectivity
+ * Why complexity = Mlog(N)? 
  * https://class.coursera.org/algs4partI-009/forum/thread?thread_id=94
  * If you assume that the only friends in the log file were in the set of N friends, 
  * then you can just loop through the log file and do uf.union(friend1, friend2) until uf.count() is 1
