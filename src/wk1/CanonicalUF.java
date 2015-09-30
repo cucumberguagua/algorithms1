@@ -32,7 +32,8 @@ public class CanonicalUF {
    
    public void union(int p, int q) {
       int rootP = find(p);
-      int rootQ = find(q);     
+      int rootQ = find(q); 
+      if(rootP == rootQ) return;
       if(sizes[rootP] <= sizes[rootQ]) {
          parents[rootP] = rootQ;
          sizes[rootQ] += sizes[rootP];
