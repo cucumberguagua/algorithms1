@@ -26,6 +26,11 @@ public class BitonicArraySearch {
       int maxIndex = findMax(array);
       System.out.println(maxIndex);
       //find if the number is in the left ascending array
+      ///find if the number is in the right descending array
+      return searchLeft(maxIndex, array, num) || searchRight(maxIndex, array, num);
+   }
+  
+   private boolean searchLeft(int maxIndex, int[] array, int num) {
       int ascLow = 0;
       int ascHigh = maxIndex;
       while(ascLow <= ascHigh) {
@@ -38,8 +43,10 @@ public class BitonicArraySearch {
             ascHigh = ascMid - 1;
          }
       }
-     
-      //find if the number is in the right descending array
+      return false;
+   }
+   
+   private boolean searchRight(int maxIndex, int[] array, int num) {
       int descLow = maxIndex + 1;
       int descHigh = array.length - 1;
       while(descLow <= descHigh) {
@@ -54,27 +61,45 @@ public class BitonicArraySearch {
       }
       return false;
    }
-  
+   
    /**
     * Find out the turning point: max number
     * @param array
     * @return
     */
-    private int findMax(int[] array) {    
-       int low = 0;
-       int high = array.length - 1;
-       while(low <= high) {
-          int mid = (low + high)/2;
-          if((array[mid-1] < array[mid]) && (array[mid] > array[mid+1])) return mid;
-          if((array[mid-1] < array[mid]) && (array[mid] < array[mid+1])) {
-             low = mid + 1;
-          }
-          if((array[mid-1] > array[mid]) && (array[mid] > array[mid+1])) {
-             high = mid - 1;
-          }
-       }
-       return -1;
+//    private int findMax(int[] array) {    
+//       int low = 0;
+//       int high = array.length - 1;
+//       while(low <= high) {
+//          int mid = (low + high)/2;
+//          if((array[mid-1] < array[mid]) && (array[mid] > array[mid+1])) return mid;
+//          if((array[mid-1] < array[mid]) && (array[mid] < array[mid+1])) {
+//             low = mid + 1;
+//          }
+//          if((array[mid-1] > array[mid]) && (array[mid] > array[mid+1])) {
+//             high = mid - 1;
+//          }
+//       }
+//       return -1;
+//   }
+   
+   //According to Coursera forum, the above findMax compare multiple times, so is not lgN
+   //http://blog.csdn.net/fiveyears/article/details/11263381
+   private int findMax(int[] array) {
+      int low = 0; 
+      int high = array.length - 1;
+      while(low < high) {
+         int mid = (low + high)/2;
+         if(array[mid] < array[mid+1]) {
+            low = mid + 1; //low != mid because array[mid] couldn't be MAX
+         }
+         else { //array[mid] > array[mid+1]
+            high = mid; //high = mid, not mid-1 because array[mid] could be MAX
+         }
+      }
+      return low; //can we return high?
    }
+   
    public static void main(String[] args) {
       int[] array = {3, 4, 5, 8, 7, 6, 2, 1, 0};
       BitonicArraySearch bas = new BitonicArraySearch();
