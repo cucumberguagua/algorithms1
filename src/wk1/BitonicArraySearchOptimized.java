@@ -102,8 +102,8 @@ public class BitonicArraySearchOptimized {
       BitonicArraySearchOptimized ba = new BitonicArraySearchOptimized(array);
       int low = 0;
       int high = array.length - 1;
-      System.out.println(ba.bitonicSearch(low, high, 1));
-      System.out.println(ba.bitonicSearch(low, high, 1));
+      System.out.println(ba.bitonicSearch(low, high, -1));
+      System.out.println(ba.bitonicSearch(low, high, 0));
       System.out.println(ba.bitonicSearch(low, high, 1));
       System.out.println(ba.bitonicSearch(low, high, 2));
       System.out.println(ba.bitonicSearch(low, high, 3));

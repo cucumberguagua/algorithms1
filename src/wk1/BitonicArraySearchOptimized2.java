@@ -1,5 +1,11 @@
 package wk1;
 
+/**
+ * This answer is from http://blog.csdn.net/fiveyears/article/details/11263381
+ * The code is different from my BitonicArraySearchOptimized, but I think they are 
+ * essentially the same. Need to prove. 
+ *
+ */
 public class BitonicArraySearchOptimized2 {
 
    private int[] a;
@@ -49,8 +55,8 @@ public class BitonicArraySearchOptimized2 {
       BitonicArraySearchOptimized ba = new BitonicArraySearchOptimized(array);
       int low = 0;
       int high = array.length - 1;
-      System.out.println(ba.bitonicSearch(low, high, 1));
-      System.out.println(ba.bitonicSearch(low, high, 1));
+      System.out.println(ba.bitonicSearch(low, high, -1));
+      System.out.println(ba.bitonicSearch(low, high, 0));
       System.out.println(ba.bitonicSearch(low, high, 1));
       System.out.println(ba.bitonicSearch(low, high, 2));
       System.out.println(ba.bitonicSearch(low, high, 3));
