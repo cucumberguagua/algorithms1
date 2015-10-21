@@ -1,0 +1,60 @@
+Coursera - Algorithms Part I
+Week 1 - Interview Questions - Analysis of Algorithms
+
+Question 3: Egg Drop
+
+Suppose that you have an N-story building (with floors 1 through N) and plenty
+of eggs. An egg breaks if it is dropped from floor T or higher and does not
+break otherwise. Your goal is to devise a strategy to determine the value of T
+given the following limitations on the number of eggs and tosses:
+
+Version 0: 1 egg, ≤ T tosses.
+Version 1: ~1lgN eggs and ~1lgN tosses.
+Version 2: ~lgT eggs and ~2lgT tosses.
+Version 3: 2 eggs and ~2sqrt(N) tosses.
+Version 4: 2 eggs and ≤ c*sqrt(T) tosses for some fixed constant c.
+
+Hints:
+Version 0: sequential search.
+Version 1: binary search.
+Version 2: find an interval containing T of size ≤2T, then do binary search.
+Version 3: find an interval of size sqrt(N), then do sequential search. Note: can be improved to ∼sqrt(2N) tosses.
+Version 4: 1+2+3+…+t∼1/2t^2. Aim for c=2sqrt(2)
+
+
+Solutions:
+References:
+https://github.com/eschwabe/interview-practice/commit/cee33e783ced563dfbd54fd06979eb57d0ba5041
+
+Version 0: 
+Drop the egg from floor 1 up, till it breaks at floor T
+
+Version 1: 
+This is the same as search a number T in an array {1...N}.
+Use Binary search. First drop an egg from floor N/2, if the egg breaks, T must be equal to N/2 or smaller.
+If it does not break, T must be greater than N/2. So the worst case is that T = 1, which we will use lgN eggs,
+and lgN tosses, since every drop will break an egg.
+
+Version 2:
+Start dropping one egg testing floor 1, and drop it at exponentially grow (2^t) floors (1, 2, 4, 8, ..., 2^(t-1), 2^t) 
+until it breaks at floor 2^t. Then we must have 2^(t-1) < T <= 2^t. This range (2^(t-1), 2^t] has 2^(t-1) elements,
+and can be searched in ~lg2^(t-1) = t-1 drops and t-1 eggs using binary search. So in total, we use 1+(t-1)=t eggs,
+(t+1) +(t-1)=2t tosses. Since t < lgT+1 <=t+1, we use >=lgT eggs, 2lgT tosses. //>=, why ~?
+
+Version 3: 
+Start dropping an egg on first floor, and increment by sqrt(N) (0, sqrt(N), 2sqrt(N), ...(t-1)sqrt(N), t*sqrt(N)) until it breaks. 
+So there are t+1 tosses. We have (t-1) *sqrt(N) < T <= t*sqrt(N), which makes t <=sqrt(N). 
+Then we drop another egg sequentially from (t-1) *sqrt(N) to t*sqrt(N), which makes sqrt(N) tosses. So in total, 
+we have 2 eggs, and (t+1)+sqrt(N) <= 2sqrt(N) //<=, why ~ ?
+
+Version 4: 
+http://datagenetics.com/blog/july22012/index.html
+I think the hint has an error. It should be c*sqrt(N) ~ 2sqrt(2)sqrt(N)
+Assume we drop our first egg from floor n, if it breaks, we can step back the previous (n-1) floors one-by-one.
+If it doesn’t break, we should step up just (n-1) floors (because we have one less drop available if we have to switch to one-by-one floors), 
+so the next floor we should try is floor n + (n-1)
+Similarly, if this drop does not break, we next need to jump up to floor n + (n-1) + (n-2), then floor n + (n-1) + (n-2) + (n-3) …
+We keep reducing the step by one each time we jump up, until that step-up is just one floor, 
+and get the following equation for an N floor building
+So n + (n-1) + (n-1) + ... + 1 = n(n-1)/2 >= N
+We have n ~ 2sqrt(2)*sqrt(N)
